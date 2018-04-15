@@ -34,11 +34,12 @@ function ITEMINVENTORY(itemId, apiKey, userId) {
   var returnVal = 0;
   for(var i = 0; i < items.length; i++) {
     var item = items[i];
-    if(item.ID == item_id) {
-      return_val = item.quantity;
+    if(item.ID == itemId) {
+      returnVal = item.quantity;
       break;
     }
   }
-  return return_val;
+  return returnVal;
 }
+
 
