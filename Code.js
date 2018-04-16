@@ -27,7 +27,7 @@
  * @param {str} apiKey apikey for associated torn user.
  * @param {str} userId userid you want to check.
  * @return a string 'YES' or 'NO' depending on if the specified user has the amount of flower
- */
+ */5
 function ITEMINVENTORY(itemId, apiKey, userId) {
   var response = UrlFetchApp.fetch('https://api.torn.com/user/'+userId+'?selections=inventory&key='+apiKey);
   var items = JSON.parse(response.getContentText()).inventory;
@@ -38,6 +38,28 @@ function ITEMINVENTORY(itemId, apiKey, userId) {
       returnVal = item.quantity;
       break;
     }
+  }
+  return returnVal;
+}
+
+
+/**
+ * Retrieve the minimum priced item available in bazaars.
+ * 
+ * @desc requirement api_key should be from the specific user specified with 
+ *    userid otherwise the torn server will return an error code.
+ *
+ * @param {int} itemId id of the item you want to retrieve.
+ * @param {str} apiKey apikey for associated torn user.
+ * @return a string 'YES' or 'NO' depending on if the specified user has the amount of flower
+ */
+function MINVALITEMBAZAAR(itemId, apiKey) {
+  var response = UrlFetchApp.fetch('https://api.torn.com/market/'+itemId+'?selections=bazaar&key='+apiKey);
+  var bazaars = JSON.parse(response.getContentText()).bazaar;
+  var returnVal = 0;
+  for(var i in bazaars) {
+    returnVal = bazaars[i].cost;
+    break;
   }
   return returnVal;
 }
