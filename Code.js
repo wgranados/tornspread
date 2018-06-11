@@ -17,6 +17,7 @@
  * along with TornSpread.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 /**
  * Retrieve the quantity of the specified item in the specified user's inentory.
  * 
@@ -26,8 +27,9 @@
  * @param {int} itemId id of the item you want to retrieve.
  * @param {str} apiKey apikey for associated torn user.
  * @param {str} userId userid you want to check.
- * @return a string 'YES' or 'NO' depending on if the specified user has the amount of flower
- */5
+ * @return an int, specifying the amount of requested item is in the user's
+ * inventory.
+ */
 function ITEMINVENTORY(itemId, apiKey, userId) {
   var response = UrlFetchApp.fetch('https://api.torn.com/user/'+userId+'?selections=inventory&key='+apiKey);
   var items = JSON.parse(response.getContentText()).inventory;
@@ -51,7 +53,7 @@ function ITEMINVENTORY(itemId, apiKey, userId) {
  *
  * @param {int} itemId id of the item you want to retrieve.
  * @param {str} apiKey apikey for associated torn user.
- * @return a string 'YES' or 'NO' depending on if the specified user has the amount of flower
+ * @return an int specifying the minimum value of an item in bazaars.
  */
 function MINVALITEMBAZAAR(itemId, apiKey) {
   var response = UrlFetchApp.fetch('https://api.torn.com/market/'+itemId+'?selections=bazaar&key='+apiKey);
@@ -73,6 +75,7 @@ function MINVALITEMBAZAAR(itemId, apiKey) {
  * followed by a space. I.e. 'apples*1 oranges*2 pears*3'
  *
  * @param {str} content containing items
+ * @return an int specifying the total for the items recorded in a cell.
  */
 function COUNTOCCUR(content) {
   const items = content.split(" ");
