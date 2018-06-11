@@ -65,3 +65,28 @@ function MINVALITEMBAZAAR(itemId, apiKey) {
 }
 
 
+
+/**
+ * Parses cells for occurrences and retrieves total amount recorded in a cell
+ *
+ * @desc requirement items to be recorded should be preceeded by an asterik and number
+ * followed by a space. I.e. 'apples*1 oranges*2 pears*3'
+ *
+ * @param {str} content containing items
+ */
+function COUNTOCCUR(content) {
+  const items = content.split(" ");
+  const occurs = items.filter(
+    function (item) {
+      return item.match(/\*/i);
+    }
+  );
+  const vals = occurs.map(
+    function (item) {
+      const pos = item.indexOf("*");
+      return parseInt(item.slice(pos+1, item.length));
+    }
+  );
+  const tot = vals.reduce(function (sum, val) {return sum+val;}, 0);
+  return tot;
+}
